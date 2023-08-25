@@ -15,8 +15,8 @@ _cyclelist
 add r0,r6,#1
 mov r8,r0             ;dexlistadd = currentdexlist + 1;
 ldr r1,[sp,#0xC]
-asr r0,r1,#0x10
-add r0,r6
+lsr r0,r1,#0x10
+adds r0,r6            ;vba不兼容add r0,r6指令,改为adds r0,r6
 lsl r0,r0,#1
 add r0,r10
 mov r2,#0
@@ -30,7 +30,7 @@ mov r9,r1
 ldr r0,=0x0202B50C
 mov r1,#0
 ldrsh r0,[r0,r1]
-add r0,r6
+adds r0,r6            ;vba不兼容add r0,r6指令,改为adds r0,r6
 mov r1,#0xBC
 mul r0,r1
 add r0,r9
