@@ -35,7 +35,7 @@ ___________________________________________
 
 ___________________________________________
 4-title
-4-1 0x08105BEC-0x0810DBEB logo
+4-1 0x08105E9C-0x0810DE9C logo
 4-2 0x0810DBEC-0x08114BEB title_menu1
 4-3 0x08114C0C-0x0811BC0B title_menu2
 4-5 0x0838D584-0x0838D6A3 pushstart
@@ -53,7 +53,7 @@ ___________________________________________
 6-4 0x0813CA60-0x0813D45F evolution1
 6-5 0x0813D660-0x0813D71F evolution2
 6-6 0x08244724-0x0824FF23 rubytable
-6-7 0x0828F1D8-0x082C6DD8 sapphiretable
+6-7 0x082BF1D8-0x082C6DD8 sapphiretable
 6-8 0x08442204 pause (0x08447764,0x0844B884,0x0844DF24,0x08450D44,0x08453BE4,0x084593A4,0x0845E324)
 6-9 0x08467044-0x084672C3 soldout
 6-10 0x08467544-0x08468743 tableshop
@@ -71,10 +71,10 @@ ___________________________________________
 6-22 0x084F0004-0x084F0303 evomode2-2
 6-23 0x0850B124-0x0850D324 getmode2
 lz77
-6-21 0x0823252C rubybacktop
-6-22 0x082350F8 rubybackbottom
-6-23 0x082B9A20 sapphirebacktop
-6-24 0x082BD190 sapphirebackbottom
+6-24 0x0823252C rubybacktop
+6-25 0x082350F8 rubybackbottom
+6-26 0x082B9A20 sapphirebacktop
+6-27 0x082BD190 sapphirebackbottom
 ___________________________________________
 7-slot
 7-1 0x0838D6E4-0x08391EE3 slot1
