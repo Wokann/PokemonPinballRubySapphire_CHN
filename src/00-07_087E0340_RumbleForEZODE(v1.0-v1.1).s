@@ -49,18 +49,3 @@ bx lr
 0x09FC0000
 0x08001000
 0x0200294A
-
-
-0xEB0 的bool函数返回用于存入0x02019C0C的值给0xFE0。(应该是用于检测GBPlayer的函数)
-可在
-0xFC6 00 20 mov r0,#0
-改为
-0xFC6 01 20 mov r0,#1
-强制开启
-
-0xFE0 的函数控制0x02019C0C的值,用于自己及其他函数判定震动选项禁用或显示。
-
-0x02019C0C 震动选项禁用/显示 0-banned 1-can be selected
-0x0200294A 震动开/关        0-off 1-on
-0x0200294E 火稚鸡图标震动       0-normal 1-rumble
-0x02019C00 震动类型?        0-norumble 1-may rumble? 2-rumble
