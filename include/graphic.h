@@ -74,7 +74,7 @@ lz77
 6-24 0x0823252C rubybacktop
 6-25 0x082350F8 rubybackbottom
 6-26 0x082B9A20 sapphirebacktop
-6-27 0x082BD190 sapphirebackbottom
+6-27 0x082BD190 sapphirebackbottom ;0x082BD1C0
 ___________________________________________
 7-slot
 7-1 0x0838D6E4-0x08391EE3 slot1
