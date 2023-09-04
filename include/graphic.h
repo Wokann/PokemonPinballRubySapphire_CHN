@@ -52,7 +52,7 @@ ___________________________________________
 6-3 0x08093C3C-0x0809543B selectmode
 6-4 0x0813CA60-0x0813D45F evolution1
 6-5 0x0813D660-0x0813D71F evolution2
-6-6 0x08244724-0x0824FF23 rubytable
+6-6 0x08244724-0x0824FF23 rubytable  0x08241B04-0x0824FF03
 6-7 0x082BF1D8-0x082C6DD8 sapphiretable
 6-8 0x08442204 pause (0x08447764,0x0844B884,0x0844DF24,0x08450D44,0x08453BE4,0x084593A4,0x0845E324)
 6-9 0x08467044-0x084672C3 soldout
@@ -71,10 +71,14 @@ ___________________________________________
 6-22 0x084F0004-0x084F0303 evomode2-2
 6-23 0x0850B124-0x0850D324 getmode2
 lz77
-6-24 0x0823252C rubybacktop
-6-25 0x082350F8 rubybackbottom
-6-26 0x082B9A20 sapphirebacktop
-6-27 0x082BD190 sapphirebackbottom ;0x082BD1C0
+6-24 0x0823252C rubybacktop 2BC9->2BDE
+     ptr 0x0804455C: 2C252308 ->087F0000(rev)
+6-25 0x082350F8 rubybackbottom 220A->2214
+     ptr 0x08044560: F8502308 ->087F2C00(rev)
+6-26 0x082B9A20 sapphirebacktop 376F->37B6
+     ptr 0x08044690: 209A2B08 ->087F4F00(rev)
+6-27 0x082BD190 sapphirebackbottom 2045->2088
+     ptr 0x08044694: 90D12B08 ->087F8700(rev)
 ___________________________________________
 7-slot
 7-1 0x0838D6E4-0x08391EE3 slot1
@@ -88,3 +92,39 @@ ___________________________________________
 8-3 0x08120D5C-0x0812215B KyogreBonus
 8-4 0x08123070-0x0812446F GroudonBonus
 8-5 0x08125090-0x0812648F RayquazaBonus
+___________________________________________
+9-inner
+lz77
+9-1 0x082309C0 rubyinnertile
+    ptr 0x0804454C: C0092308
+9-2 0x082B7CC4 sapphireinnertile
+    ptr 0x08044680: C47C2B08
+9-3 0x082E6EF8 commoninnertile  //6处ptr,疑似奖励关卡调用，无商店或进化，故无需改动
+
+map
+9-4 0x08198F60-0x0819CF5F EvolutionSelect
+共分4块-移动的背景斑点
+0x198F60
+0x199F60
+0x19AF60
+0x19BF60
+文字偏移地址0x108-0x128, 0x148-0x168
+A6C1 A7C1 A8C1 A9C1 AAC1 ABC1 ACC1 A8C1 F6C1 A3C1 AEC1 A6C1 A9C1 A6C1 AFC1 ABC1
+A6C9 B0C1 A8C9 B1C1 A8C9 ACC9 ACC9 A8C9 F6CD A3C1 B2C1 A6C9 B1C1 A6C9 AFC9 ACC9
+c1-无 c5-水平翻转 c9-垂直翻转 cd-水平、垂直翻转
+
+9-5 0x0819D160-0x081a115F PokemonShop 
+4块-移动的背景斑点
+0x19d160
+0x19e160
+0x19f160
+0x1a0160
+文字偏移地址0x108-0x11e, 0x148-0x15e
+EDC1 A8C1 EEC1 F7C1 EFC1 F0C1 F1C1 F2C1 AEC1 ADC1 A8C5 EDC1
+F3C1 A8C9 EEC9 F8C1 F4C1 F0C9 F5C1 F2C9 B2C1 ADCD A8CD F3C1
+c1-无 c5-水平翻转 c9-垂直翻转 cd-水平、垂直翻转
+
+第一行A6-B2
+第二行ED-F8
+
+9-6 0x084DC704-0x084DC803 evo
