@@ -1,6 +1,6 @@
-0x04000130:(u16)  0x 0000
-                     0   0    0     0
-                     -   LR   DPAD  SS  
+0x04000130:         0x 00           0x00
+                    0       0       0   0
+                    DPAD    Ctrl    -   LR   
 
 0x03FF NUll
 
@@ -15,7 +15,7 @@ DPAD:
 0xE RIGHT
 0XF NULL
 
-SS
+Ctrl
 0X3 START+SELECT
 0x7 START
 0xB SELECT

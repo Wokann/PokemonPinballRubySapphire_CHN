@@ -1,4 +1,4 @@
-void FixTextGfx(int Currenttext,int stringwidth)//0x086D0000
+void FixTextGfx(int Currenttext,int stringwidth)//0x087E0000
 {
     int width;
     int *TempStoreBase;
