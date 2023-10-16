@@ -1,124 +1,121 @@
-copy of 0x0805324C
+;copy from 0x0805324C0
+.func CalRowCopy
+    cmp r1, 0
+    beq @@a2Equ0
 
-RAM:0805324C ; int __fastcall CalRow(unsigned int, unsigned int)
-RAM:0805324C                 EXPORT CalRow
-RAM:0805324C CalRow                                  ; CODE XREF: sub_80007C0+22↑p
-RAM:0805324C                                         ; sub_80007C0+34↑p ...
-RAM:0805324C                 CMP             R1, #0
-RAM:0805324E                 BEQ             loc_80532D4
-RAM:08053250                 PUSH            {R4}
-RAM:08053252                 MOVS            R4, R0
-RAM:08053254                 EORS            R4, R1
-RAM:08053256                 MOV             R12, R4
-RAM:08053258                 MOVS            R3, #1
-RAM:0805325A                 MOVS            R2, #0
-RAM:0805325C                 CMP             R1, #0
-RAM:0805325E                 BPL             loc_8053262
-RAM:08053260                 NEGS            R1, R1
-RAM:08053262
-RAM:08053262 loc_8053262                             ; CODE XREF: CalRow+12↑j
-RAM:08053262                 CMP             R0, #0
-RAM:08053264                 BPL             loc_8053268
-RAM:08053266                 NEGS            R0, R0
-RAM:08053268
-RAM:08053268 loc_8053268                             ; CODE XREF: CalRow+18↑j
-RAM:08053268                 CMP             R0, R1
-RAM:0805326A                 BCC             loc_80532C6
-RAM:0805326C                 MOVS            R4, #0x10000000
-RAM:08053270
-RAM:08053270 loc_8053270                             ; CODE XREF: CalRow+30↓j
-RAM:08053270                 CMP             R1, R4
-RAM:08053272                 BCS             loc_805327E
-RAM:08053274                 CMP             R1, R0
-RAM:08053276                 BCS             loc_805327E
-RAM:08053278                 LSLS            R1, R1, #4
-RAM:0805327A                 LSLS            R3, R3, #4
-RAM:0805327C                 B               loc_8053270
-RAM:0805327E ; ---------------------------------------------------------------------------
-RAM:0805327E
-RAM:0805327E loc_805327E                             ; CODE XREF: CalRow+26↑j
-RAM:0805327E                                         ; CalRow+2A↑j
-RAM:0805327E                 LSLS            R4, R4, #3
-RAM:08053280
-RAM:08053280 loc_8053280                             ; CODE XREF: CalRow+40↓j
-RAM:08053280                 CMP             R1, R4
-RAM:08053282                 BCS             loc_805328E
-RAM:08053284                 CMP             R1, R0
-RAM:08053286                 BCS             loc_805328E
-RAM:08053288                 LSLS            R1, R1, #1
-RAM:0805328A                 LSLS            R3, R3, #1
-RAM:0805328C                 B               loc_8053280
-RAM:0805328E ; ---------------------------------------------------------------------------
-RAM:0805328E
-RAM:0805328E loc_805328E                             ; CODE XREF: CalRow+36↑j
-RAM:0805328E                                         ; CalRow+3A↑j ...
-RAM:0805328E                 CMP             R0, R1
-RAM:08053290                 BCC             loc_8053296
-RAM:08053292                 SUBS            R0, R0, R1
-RAM:08053294                 ORRS            R2, R3
-RAM:08053296
-RAM:08053296 loc_8053296                             ; CODE XREF: CalRow+44↑j
-RAM:08053296                 LSRS            R4, R1, #1
-RAM:08053298                 CMP             R0, R4
-RAM:0805329A                 BCC             loc_80532A2
-RAM:0805329C                 SUBS            R0, R0, R4
-RAM:0805329E                 LSRS            R4, R3, #1
-RAM:080532A0                 ORRS            R2, R4
-RAM:080532A2
-RAM:080532A2 loc_80532A2                             ; CODE XREF: CalRow+4E↑j
-RAM:080532A2                 LSRS            R4, R1, #2
-RAM:080532A4                 CMP             R0, R4
-RAM:080532A6                 BCC             loc_80532AE
-RAM:080532A8                 SUBS            R0, R0, R4
-RAM:080532AA                 LSRS            R4, R3, #2
-RAM:080532AC                 ORRS            R2, R4
-RAM:080532AE
-RAM:080532AE loc_80532AE                             ; CODE XREF: CalRow+5A↑j
-RAM:080532AE                 LSRS            R4, R1, #3
-RAM:080532B0                 CMP             R0, R4
-RAM:080532B2                 BCC             loc_80532BA
-RAM:080532B4                 SUBS            R0, R0, R4
-RAM:080532B6                 LSRS            R4, R3, #3
-RAM:080532B8                 ORRS            R2, R4
-RAM:080532BA
-RAM:080532BA loc_80532BA                             ; CODE XREF: CalRow+66↑j
-RAM:080532BA                 CMP             R0, #0
-RAM:080532BC                 BEQ             loc_80532C6
-RAM:080532BE                 LSRS            R3, R3, #4
-RAM:080532C0                 BEQ             loc_80532C6
-RAM:080532C2                 LSRS            R1, R1, #4
-RAM:080532C4                 B               loc_805328E
-RAM:080532C6 ; ---------------------------------------------------------------------------
-RAM:080532C6
-RAM:080532C6 loc_80532C6                             ; CODE XREF: CalRow+1E↑j
-RAM:080532C6                                         ; CalRow+70↑j ...
-RAM:080532C6                 MOVS            R0, R2
-RAM:080532C8                 MOV             R4, R12
-RAM:080532CA                 CMP             R4, #0
-RAM:080532CC                 BPL             loc_80532D0
-RAM:080532CE                 NEGS            R0, R0
-RAM:080532D0
-RAM:080532D0 loc_80532D0                             ; CODE XREF: CalRow+80↑j
-RAM:080532D0                 POP             {R4}
-RAM:080532D2                 MOV             PC, LR
-RAM:080532D4 ; ---------------------------------------------------------------------------
-RAM:080532D4
-RAM:080532D4 loc_80532D4                             ; CODE XREF: CalRow+2↑j
-RAM:080532D4                 PUSH            {LR}
-RAM:080532D6                 BL              nullsub_1
-RAM:080532DA                 MOVS            R0, #0
-RAM:080532DC                 POP             {PC}
-RAM:080532DC ; End of function CalRow
-RAM:080532DC
-RAM:080532DC ; ---------------------------------------------------------------------------
-RAM:080532DE                 DCB    0
-RAM:080532DF                 DCB    0
-RAM:080532E0 ; [00000002 BYTES: COLLAPSED FUNCTION nullsub_1. PRESS CTRL-NUMPAD+ TO EXPAND]
-RAM:080532E2                 DCB    0
-RAM:080532E3                 DCB    0
-RAM:080532E4
+@@Continue:
+    push r4
+    mov r4, r0
+    eor r4, r1
+    mov r12, r4
+    mov r3, 1
+    mov r2, 0
 
+@@FirstCheck:
+    cmp r1, 0
+    bpl @@SecondCheck
+    neg r1, r1
 
+@@SecondCheck:
+    cmp r0, 0
+    bpl @@Compare_a1a2
+    neg r0, r0
+
+@@Compare_a1a2:
+    cmp r0, r1
+    blo @@a1LessThana2
+
+@@a1LargerEqualThana2:
+@@ThirdCheck:
+    mov r4, 1
+    lsl r4, r4, 0x1c
+    
+@@FirstLoop:
+    cmp r1, r4
+    bhs @@FourthCheck
+    cmp r1, r0
+    bhs @@FourthCheck
+    lsl r1, r1, 4
+    lsl r3, r3, 4
+    b @@FirstLoop
+
+@@FourthCheck:
+    lsl r4, r4, 3
+
+@@SecondLoop:
+    cmp r1, r4
+    bhs @@ThirdLoop
+    cmp r1, r0
+    bhs @@ThirdLoop
+    lsl r1, r1, 1
+    lsl r3, r3, 1
+    b @@SecondLoop
+
+@@ThirdLoop:
+@@FifthCheck:
+    cmp r0, r1
+    blo @@SixthCheck
+    sub r0, r0, r1
+    orr r2, r3
+
+@@SixthCheck:
+    lsr r4, r1, 1
+    cmp r0, r4
+    blo @@SeventhCheck
+    sub r0, r0, r4
+    lsr r4, r3, 1
+    orr r2, r4
+
+@@SeventhCheck:
+    lsr r4, r1, 2
+    cmp r0, r4
+    blo @@EighthCheck
+    sub r0, r0, r4
+    lsr r4, r3, 2
+    orr r2, r4
+
+@@EighthCheck:
+    lsr r4, r1, 3
+    cmp r0, r4
+    blo @@NinthCheck
+    sub r0, r0, r4
+    lsr r4, r3, 3
+    orr r2, r4
+
+@@NinthCheck:
+    cmp r0, 0
+    beq @@a1LessThana2
+    lsr r3, r3, 4
+    beq @@a1LessThana2
+    lsr r1, r1, 4
+    b @@ThirdLoop
+
+@@a1LessThana2:
+    mov r0, r2
+    mov r4, r12
+    cmp r4, 0
+    bpl @@Returnv4
+    neg r0, r0
+
+@@Returnv4:
+    pop {r4}
+    mov pc, lr
+
+@@a2Equ0:
+    push lr
+    bl EndCalRowCopy
+    mov r0, 0
+    pop pc
+    lsl r0, r0, 0
+
+EndCalRowCopy:
+    mov pc, lr
+    .byte 0,0
+.endfunc
+    .word 0xffffffff
+    .word 0xffffffff
+
+/*
 int __fastcall sub_805324C(unsigned int a1, unsigned int a2)
 {
   signed int v2; // r12
@@ -188,3 +185,4 @@ int __fastcall sub_805324C(unsigned int a1, unsigned int a2)
   }
   return result;
 }
+*/

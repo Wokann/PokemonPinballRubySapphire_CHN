@@ -56,10 +56,37 @@ RumblePrepare
 
 RumbleStart
 {
-    *(0x08001000) = 0x2;
+    *(0x08001000) = 0x2;        //EZODE ON
 }
 
 RumbleEnd
 {
-    *(0x08001000) = 0x0;
+    *(0x08001000) = 0x0;        //EZODE OFF
+}
+
+
+TYPE1&2-支持GPIO、EZODE、EZ3in1接口
+void RumbleSwitch(bool IfIsRumble)
+{
+    if(*0x02019C0C != 1)
+    {
+        //TYPE1(GPIO)
+        *0x080000C8 = 1;
+        *0x080000C6 = 8;
+        *0x080000C4 = IfIsRumble * 8;   //GPIO rumble ON(8)/OFF(0) (ezode,IG)
+
+        //TYPE2(EZ)
+        *0x09FE0000 = 0xD200;
+        *0x08000000 = 0x1500;
+        *0x08020000 = 0xD200;
+        *0x08040000 = 0x1500;
+        if(IfIsRumble == TRUE)
+            data = 0x7;                 //ez3in1 rumble ON (data = 7)
+        else
+            data = 0x8;                 //ez3in1 rumble OFF (data = 8)
+        *0x09E20000 = data;             //ez3in1 rumble OFF (data = 8)
+        *0x09FC0000 = 0x1500;
+
+        *0x08001000 = IfIsRumble * 2;  //ezode rumble ON(2)/OFF(0)
+    }
 }

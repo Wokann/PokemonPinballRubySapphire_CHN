@@ -1,158 +1,147 @@
-copy of 0x080532E4
+;copy from 0x080532E4
+.func CalColumnCopy
+    mov r3, 1
+    cmp r1, 0
+    beq @@a2Equ0
+    bpl @@continue2
+    neg r1, r1
 
-RAM:080532E4 ; unsigned int __fastcall CalColumn(unsigned int result, unsigned int)
-RAM:080532E4                 EXPORT CalColumn
-RAM:080532E4 CalColumn                               ; CODE XREF: PrintEcardTextyAppear+20↑p
-RAM:080532E4                                         ; PrintEcardArrayAppearOrDisppear+20↑p ...
-RAM:080532E4                 MOVS            R3, #1
-RAM:080532E6                 CMP             R1, #0
-RAM:080532E8                 BEQ             loc_80533A8
-RAM:080532EA                 BPL             loc_80532EE
-RAM:080532EC                 NEGS            R1, R1
-RAM:080532EE
-RAM:080532EE loc_80532EE                             ; CODE XREF: CalColumn+6↑j
-RAM:080532EE                 PUSH            {R4}
-RAM:080532F0                 PUSH            {R0}
-RAM:080532F2                 CMP             R0, #0
-RAM:080532F4                 BPL             loc_80532F8
-RAM:080532F6                 NEGS            R0, R0
-RAM:080532F8
-RAM:080532F8 loc_80532F8                             ; CODE XREF: CalColumn+10↑j
-RAM:080532F8                 CMP             R0, R1
-RAM:080532FA                 BCC             loc_805339C
-RAM:080532FC                 MOVS            R4, #0x10000000
-RAM:08053300
-RAM:08053300 loc_8053300                             ; CODE XREF: CalColumn+28↓j
-RAM:08053300                 CMP             R1, R4
-RAM:08053302                 BCS             loc_805330E
-RAM:08053304                 CMP             R1, R0
-RAM:08053306                 BCS             loc_805330E
-RAM:08053308                 LSLS            R1, R1, #4
-RAM:0805330A                 LSLS            R3, R3, #4
-RAM:0805330C                 B               loc_8053300
-RAM:0805330E ; ---------------------------------------------------------------------------
-RAM:0805330E
-RAM:0805330E loc_805330E                             ; CODE XREF: CalColumn+1E↑j
-RAM:0805330E                                         ; CalColumn+22↑j
-RAM:0805330E                 LSLS            R4, R4, #3
-RAM:08053310
-RAM:08053310 loc_8053310                             ; CODE XREF: CalColumn+38↓j
-RAM:08053310                 CMP             R1, R4
-RAM:08053312                 BCS             loc_805331E
-RAM:08053314                 CMP             R1, R0
-RAM:08053316                 BCS             loc_805331E
-RAM:08053318                 LSLS            R1, R1, #1
-RAM:0805331A                 LSLS            R3, R3, #1
-RAM:0805331C                 B               loc_8053310
-RAM:0805331E ; ---------------------------------------------------------------------------
-RAM:0805331E
-RAM:0805331E loc_805331E                             ; CODE XREF: CalColumn+2E↑j
-RAM:0805331E                                         ; CalColumn+32↑j ...
-RAM:0805331E                 MOVS            R2, #0
-RAM:08053320                 CMP             R0, R1
-RAM:08053322                 BCC             loc_8053326
-RAM:08053324                 SUBS            R0, R0, R1
-RAM:08053326
-RAM:08053326 loc_8053326                             ; CODE XREF: CalColumn+3E↑j
-RAM:08053326                 LSRS            R4, R1, #1
-RAM:08053328                 CMP             R0, R4
-RAM:0805332A                 BCC             loc_8053338
-RAM:0805332C                 SUBS            R0, R0, R4
-RAM:0805332E                 MOV             R12, R3
-RAM:08053330                 MOVS            R4, #1
-RAM:08053332                 RORS            R3, R4
-RAM:08053334                 ORRS            R2, R3
-RAM:08053336                 MOV             R3, R12
-RAM:08053338
-RAM:08053338 loc_8053338                             ; CODE XREF: CalColumn+46↑j
-RAM:08053338                 LSRS            R4, R1, #2
-RAM:0805333A                 CMP             R0, R4
-RAM:0805333C                 BCC             loc_805334A
-RAM:0805333E                 SUBS            R0, R0, R4
-RAM:08053340                 MOV             R12, R3
-RAM:08053342                 MOVS            R4, #2
-RAM:08053344                 RORS            R3, R4
-RAM:08053346                 ORRS            R2, R3
-RAM:08053348                 MOV             R3, R12
-RAM:0805334A
-RAM:0805334A loc_805334A                             ; CODE XREF: CalColumn+58↑j
-RAM:0805334A                 LSRS            R4, R1, #3
-RAM:0805334C                 CMP             R0, R4
-RAM:0805334E                 BCC             loc_805335C
-RAM:08053350                 SUBS            R0, R0, R4
-RAM:08053352                 MOV             R12, R3
-RAM:08053354                 MOVS            R4, #3
-RAM:08053356                 RORS            R3, R4
-RAM:08053358                 ORRS            R2, R3
-RAM:0805335A                 MOV             R3, R12
-RAM:0805335C
-RAM:0805335C loc_805335C                             ; CODE XREF: CalColumn+6A↑j
-RAM:0805335C                 MOV             R12, R3
-RAM:0805335E                 CMP             R0, #0
-RAM:08053360                 BEQ             loc_805336A
-RAM:08053362                 LSRS            R3, R3, #4
-RAM:08053364                 BEQ             loc_805336A
-RAM:08053366                 LSRS            R1, R1, #4
-RAM:08053368                 B               loc_805331E
-RAM:0805336A ; ---------------------------------------------------------------------------
-RAM:0805336A
-RAM:0805336A loc_805336A                             ; CODE XREF: CalColumn+7C↑j
-RAM:0805336A                                         ; CalColumn+80↑j
-RAM:0805336A                 MOVS            R4, #0xE0000000
-RAM:0805336E                 ANDS            R2, R4
-RAM:08053370                 BEQ             loc_805339C
-RAM:08053372                 MOV             R3, R12
-RAM:08053374                 MOVS            R4, #3
-RAM:08053376                 RORS            R3, R4
-RAM:08053378                 TST             R2, R3
-RAM:0805337A                 BEQ             loc_8053380
-RAM:0805337C                 LSRS            R4, R1, #3
-RAM:0805337E                 ADDS            R0, R0, R4
-RAM:08053380
-RAM:08053380 loc_8053380                             ; CODE XREF: CalColumn+96↑j
-RAM:08053380                 MOV             R3, R12
-RAM:08053382                 MOVS            R4, #2
-RAM:08053384                 RORS            R3, R4
-RAM:08053386                 TST             R2, R3
-RAM:08053388                 BEQ             loc_805338E
-RAM:0805338A                 LSRS            R4, R1, #2
-RAM:0805338C                 ADDS            R0, R0, R4
-RAM:0805338E
-RAM:0805338E loc_805338E                             ; CODE XREF: CalColumn+A4↑j
-RAM:0805338E                 MOV             R3, R12
-RAM:08053390                 MOVS            R4, #1
-RAM:08053392                 RORS            R3, R4
-RAM:08053394                 TST             R2, R3
-RAM:08053396                 BEQ             loc_805339C
-RAM:08053398                 LSRS            R4, R1, #1
-RAM:0805339A                 ADDS            R0, R0, R4
-RAM:0805339C
-RAM:0805339C loc_805339C                             ; CODE XREF: CalColumn+16↑j
-RAM:0805339C                                         ; CalColumn+8C↑j ...
-RAM:0805339C                 POP             {R4}
-RAM:0805339E                 CMP             R4, #0
-RAM:080533A0                 BPL             loc_80533A4
-RAM:080533A2                 NEGS            R0, R0
-RAM:080533A4
-RAM:080533A4 loc_80533A4                             ; CODE XREF: CalColumn+BC↑j
-RAM:080533A4                 POP             {R4}
-RAM:080533A6                 MOV             PC, LR
-RAM:080533A8 ; ---------------------------------------------------------------------------
-RAM:080533A8
-RAM:080533A8 loc_80533A8                             ; CODE XREF: CalColumn+4↑j
-RAM:080533A8                 PUSH            {LR}
-RAM:080533AA                 BL              nullsub_1
-RAM:080533AE                 MOVS            R0, #0
-RAM:080533B0                 POP             {PC}
-RAM:080533B0 ; End of function CalColumn
-RAM:080533B0
-RAM:080533B0 ; ---------------------------------------------------------------------------
-RAM:080533B2                 DCB    0
-RAM:080533B3                 DCB    0
+@@continue2:
+    push r4
+    push r0
+
+@@FirstCheck:
+    cmp r0, 0
+    bpl @@SecondCheck
+    neg r0, r0
+  
+@@SecondCheck:
+    cmp r0, r1
+    blo @@resultLessThana2
+    mov r4, 1
+    lsl r4, r4, 0x1c
+
+@@sub_87e028c:
+    cmp r1, r4
+    bhs @@sub_87e029a
+    cmp r1, r0
+    bhs @@sub_87e029a
+    lsl r1, r1, 4
+    lsl r3, r3, 4
+    b @@sub_87e028c
+
+@@sub_87e029a:
+    lsl r4, r4, 3
+
+@@sub_87e029c:
+    cmp r1, r4
+    bhs @@sub_87e02aa
+    cmp r1, r0
+    bhs @@sub_87e02aa
+    lsl r1, r1, 1
+    lsl r3, r3, 1
+    b @@sub_87e029c
+
+@@sub_87e02aa:
+    mov r2, 0
+    cmp r0, r1
+    blo @@sub_87e02b2
+    sub r0, r0, r1
+
+@@sub_87e02b2:
+    lsr r4, r1, 1
+    cmp r0, r4
+    blo @@sub_87e02c4
+    sub r0, r0, r4
+    mov r12, r3
+    mov r4, 1
+    ror r3, r4
+    orr r2, r3
+    mov r3, r12
+
+@@sub_87e02c4:
+    lsr r4, r1, 2
+    cmp r0, r4
+    blo @@sub_87e02d6
+    sub r0, r0, r4
+    mov r12, r3
+    mov r4, 2
+    ror r3, r4
+    orr r2, r3
+    mov r3, r12
+
+@@sub_87e02d6:
+    lsr r4, r1, 3
+    cmp r0, r4
+    blo @@sub_87e02e8
+    sub r0, r0, r4
+    mov r12, r3
+    mov r4, 3
+    ror r3, r4
+    orr r2, r3
+    mov r3, r12
+
+@@sub_87e02e8:
+    mov r12, r3
+    cmp r0, 0
+    beq @@sub_87e02f6
+    lsr r3, r3, 4
+    beq @@sub_87e02f6
+    lsr r1, r1, 4
+    b @@sub_87e02aa
+
+@@sub_87e02f6:
+    mov r4, 0xe
+    lsl r4, r4, 0x1c
+    and r2, r4
+    beq @@resultLessThana2
+
+    mov r3, r12
+    mov r4, 3
+    ror r3, r4
+    tst r2, r3
+    beq @@sub_87e030c
+    lsr r4, r1, 3
+    add r0, r0, r4
+
+@@sub_87e030c:
+    mov r3, r12
+    mov r4, 2
+    ror r3, r4
+    tst r2, r3
+    beq @@sub_87e031a
+    lsr r4, r1, 2
+    add r0, r0, r4
+
+@@sub_87e031a:
+    mov r3, r12
+    mov r4, 1
+    ror r3, r4
+    tst r2, r3
+    beq @@resultLessThana2
+    lsr r4, r1, 1
+    add r0, r0, r4
+
+@@resultLessThana2:
+    pop r4
+    cmp r4, 0
+    bpl @@EndCalColumn
+    neg r0, r0
+
+@@EndCalColumn:
+    pop r4
+    mov pc, lr
+
+@@a2Equ0:
+    push lr
+    bl (CalColumnCopy - 4);应该为EndCalRowCopy，待更新修改
+    mov r0, 0
+    pop pc
+    lsl r0, r0, 0
+.endfunc
 
 
-
-
+/*
 unsigned int __fastcall sub_80532E4(unsigned int result, unsigned int a2)
 {
   unsigned int v2; // r3
@@ -230,3 +219,4 @@ unsigned int __fastcall sub_80532E4(unsigned int result, unsigned int a2)
   }
   return result;
 }
+*/

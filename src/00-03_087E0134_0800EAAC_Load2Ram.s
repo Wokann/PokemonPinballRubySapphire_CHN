@@ -1,57 +1,49 @@
-copy of 0x0800EAAC
+;copy from 0x0800EAAC
+.func Load2RamCopy
+    push r4-r5, lr
+    sub sp, 8
+    str r0, [sp]
+    str r1, [sp, 4]
+    lsl r2, r2, 0x10
+    lsr r0, r2, 0x10
+    mov r4, 0
+    lsl r3, r3, 0x10
+    asr r1, r3, 0x10
+    cmp r4, r1
+    bge @@End
 
-RAM:0800EAAC ; int __fastcall Load2Ram(int Gfx_font, int RamStore, unsigned __int16 Widthblock, __int16 Heightblock)
-RAM:0800EAAC                 EXPORT Load2Ram
-RAM:0800EAAC Load2Ram                                ; CODE XREF: CleanEcardText+16↑p
-RAM:0800EAAC                                         ; PrintEcardText+3E↑p ...
-RAM:0800EAAC
-RAM:0800EAAC var_14          = -0x14
-RAM:0800EAAC var_10          = -0x10
-RAM:0800EAAC
-RAM:0800EAAC                 PUSH            {R4,R5,LR}
-RAM:0800EAAE                 SUB             SP, SP, #8
-RAM:0800EAB0                 STR             R0, [SP,#0x14+var_14]
-RAM:0800EAB2                 STR             R1, [SP,#0x14+var_10]
-RAM:0800EAB4                 LSLS            R2, R2, #0x10
-RAM:0800EAB6                 LSRS            R0, R2, #0x10
-RAM:0800EAB8                 MOVS            R4, #0
-RAM:0800EABA                 LSLS            R3, R3, #0x10
-RAM:0800EABC                 ASRS            R1, R3, #0x10
-RAM:0800EABE                 CMP             R4, R1
-RAM:0800EAC0                 BGE             loc_800EAE8
-RAM:0800EAC2                 LDR             R2, =Ram_040000D4_6
-RAM:0800EAC4                 LSLS            R0, R0, #0x10
-RAM:0800EAC6                 ASRS            R3, R0, #0xC
-RAM:0800EAC8                 MOVS            R0, #0x80000000
-RAM:0800EACC                 ORRS            R3, R0
-RAM:0800EACE                 MOVS            R5, R1
-RAM:0800EAD0
-RAM:0800EAD0 loc_800EAD0                             ; CODE XREF: Load2Ram+3A↓j
-RAM:0800EAD0                 LSLS            R1, R4, #0xA
-RAM:0800EAD2                 LDR             R0, [SP,#0x14+var_14]
-RAM:0800EAD4                 ADDS            R0, R0, R1
-RAM:0800EAD6                 STR             R0, [R2]
-RAM:0800EAD8                 LDR             R0, [SP,#0x14+var_10]
-RAM:0800EADA                 ADDS            R0, R0, R1
-RAM:0800EADC                 STR             R0, [R2,#(dword_40000D8 - 0x40000D4)]
-RAM:0800EADE                 STR             R3, [R2,#(dword_40000DC - 0x40000D4)]
-RAM:0800EAE0                 LDR             R0, [R2,#(dword_40000DC - 0x40000D4)]
-RAM:0800EAE2                 ADDS            R4, #1
-RAM:0800EAE4                 CMP             R4, R5
-RAM:0800EAE6                 BLT             loc_800EAD0
-RAM:0800EAE8
-RAM:0800EAE8 loc_800EAE8                             ; CODE XREF: Load2Ram+14↑j
-RAM:0800EAE8                 ADD             SP, SP, #8
-RAM:0800EAEA                 POP             {R4,R5}
-RAM:0800EAEC                 POP             {R0}
-RAM:0800EAEE                 BX              R0
-RAM:0800EAEE ; End of function Load2Ram
-RAM:0800EAEE
-RAM:0800EAEE ; ---------------------------------------------------------------------------
-RAM:0800EAF0                 EXPORT Ram_040000D4_0
-RAM:0800EAF0 Ram_040000D4_0  DCD Ram_040000D4_6      ; DATA XREF: Load2Ram+16↑r
+@@StartLoad:
+    ldr r2, =0x040000D4
+    lsl r0, r0, 0x10
+    asr r3, r0, 0xc
+    mov r0, 0x80
+    lsl r0, r0, 0x18
+    orr r3, r0
+    mov r5, r1
 
+@@RamLoadLoop:
+    lsl r1, r4, 0xa
+    ldr r0, [sp]
+    add r0, r0, r1
+    str r0, [r2]
+    ldr r0, [sp, 4]
+    add r0, r0, r1
+    str r0, [r2, 4]  ;0x040000D8
+    str r3, [r2, 8]  ;0x040000DC
+    ldr r0, [r2, 8]
+    add r4, 1
+    cmp r4, r5
+    blt @@RamLoadLoop
 
+@@End:
+    add sp, 8
+    pop r4-r5
+    pop r0
+    bx r0
+.pool
+.endfunc
+    .word 0xffffffff
+/*
 u32 Load2Ram(int Gfx_font, int RamStore, uint16_t Widthblock, int16_t Heightblock)
 {
   int widthcount; // r0
@@ -75,3 +67,4 @@ u32 Load2Ram(int Gfx_font, int RamStore, uint16_t Widthblock, int16_t Heightbloc
   }
   return v9;
 }
+*/

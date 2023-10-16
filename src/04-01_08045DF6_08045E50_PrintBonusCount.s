@@ -1,0 +1,15 @@
+;已迁移至HackInOrigin
+/*
+sub_080045DA0
+
+08045df6 
+RAM:08045DF6 00 06 LSLS R0, R0, #0x18
+RAM:08045DF8 00 16 ASRS R0, R0, #0x18
+->
+lsls r0,r0,#0x10
+asrs r0,r0,#0x10
+
+0x08045E50 字库调用
+44 BA 4E 08->
+00 E0 79 08
+*/

@@ -1,173 +1,167 @@
-PrintPokemonDexTopInfos
-.org 0x665E
-ldr r0, =0x087DF000
-mov pc,r0
-0x087DF000
-back. 0x6734
 
-PrintPokemonDexTopInfos
-.org 0x087DF000
-ldr r0,=0x0202A170
-asr r2,r7,#0x10
-lsl r1,r2,#1
-add r1,r1,r0
-mov r3,#0
-ldrsh r0,[r1,r3]
-cmp r0,#0
-ble _hyphen
+.func PrintPokemonDexTopInfosChinese
+PokemonName:
+    ldr r0,=0x0202A170
+    asr r2,r7,0x10
+    lsl r1,r2,1
+    add r1,r1,r0
+    mov r3,0
+    ldrsh r0,[r1,r3]
+    cmp r0,0
+    ble @@Hyphen
 
-_text1
-ldr r0,=0x0805A430
-mov r1,#0xBC
-mul r1,r2
-add r0,#0x16
-add r4,r1,r0
-mov r5,#4
-mov r3,#0
+@@Text:
+    ldr r0,=TextOfPokedex
+    mov r1,0xBC
+    mul r1,r2
+    add r0,0x16
+    add r4,r1,r0
+    mov r5,4
+    mov r3,0
 
-_titlenamecycle
-mov r1,#0
-ldrsh r0,[r4,r1]
-lsl r0,r0,#10
-lsr r0,r0,#10
-mov r1,r3
-bl 0x087E0000   ;FixTextGfx
-mov r1,#3A
-mov r2,#0
-ldrsh r0,[r4,r2]
-lsl r0,r0,#10
-lsr r0,r0,#10
-lsr r0,r0,#8
-cmp r0,r1
-ble _jpfont
-add r2,#4
-_jpfont
-add r2,#8
-add r3,r3,r2
-add r4,#2
-sub r5,#1
-cmp r5,#0
-bge _titlenamecycle
-b _print
+@@TitleNameCycle:
+    mov r1,0
+    ldrsh r0,[r4,r1]
+    lsl r0,r0,0x10
+    lsr r0,r0,0x10
+    .hword 0x4619 ;mov r1,r3
+    bl FixTextGfx
+    mov r1,0x3A
+    mov r2,0
+    ldrsh r0,[r4,r2]
+    lsl r0,r0,0x10
+    lsr r0,r0,0x10
+    lsr r0,r0,8
+    cmp r0,r1
+    ble @@JpFont
+    add r2,4
 
-_hyphen
-movs r5,#4
-movs r3,#0
+@@JpFont:
+    add r2,8
+    add r3,r3,r2
+    add r4,2
+    sub r5,1
+    cmp r5,0
+    bge @@TitleNameCycle
+    b @@Print
 
-_titlehyphencycle
-mov r0,#0xF8
-mov r1,#0xA2
-lsl r0,r0,#8
-add r0,r0,r1
-mov r1,r3
-bl 0x087E0000   ;FixTextGfx
-add r3,#0xC
-sub r5,#1
-bge _titlehyphencycle
+@@Hyphen:
+    mov r5,4
+    mov r3,0
 
-_print
-ldr r0,=0x0203A000
-ldr r1,=0x06004C00
-mov r2,#8
-mov r3,#2
-bl 0x087E0134    ;Load2Ram
-ldr r0,=0x0806DB1C
-ldr r1,=0x0203A000
-mov r2,#8
-mov r3,#2
-bl 0x087E0134    ;Load2Ram
-b _category
-0x0202A170
-0x0805A430
-0x0203A000
-0x06004C00
-0x0806DB1C
+@@TitleHyphenCycle:
+    mov r0,0xF8
+    mov r1,0xA2
+    lsl r0,r0,8
+    add r0,r0,r1
+    .hword 0x4619 ;mov r1,r3
+    bl FixTextGfx
+    add r3,0xC
+    sub r5,1
+    bge @@TitleHyphenCycle
 
-_category 
-.org 0x087DF0A0
-ldr r1,=0x0202A170
-asr r2,r7,#0x10
-lsl r0,r2,#1
-add r0,r0,r1
-mov r3,#0
-ldrsh r0,[r0,r3]
-cmp r0,#1
-beq _text2
-cmp r0,#2
-ble _hyphen2
+@@Print:
+    ldr r0,=0x0203A000
+    ldr r1,=0x06004C00
+    mov r2,8
+    mov r3,2
+    bl Load2RamCopy
+    ldr r0,=0x0806DB1C
+    ldr r1,=0x0203A000
+    mov r2,8
+    mov r3,2
+    bl Load2RamCopy
+    b PokemonCategory
+.pool
+    .word 0xFFFFFFFF
+    .byte 0xCE,0xD4,0xBF,0xB4,0xCE,0xA2,0xB3,0xBE
 
-_text2
-ldr r0,=0x0805A430
-mov r1,#0xBC
-mul r1,r2
-add r0,#0x20
-add r4,r1,r0
-mov r5,#4
-mov r3,#0
+PokemonCategory:
+  ldr r1,=0x0202A170
+  lsr r2,r7,0x10
+  lsl r0,r2,1
+  add r0,r0,r1
+  mov r3,0
+  ldrsh r0,[r0,r3]
+  cmp r0,1
+  beq @@Text
+  cmp r0,2
+  ble @@Hyphen
 
-_titlecategorycycle
-mov r1,#0
-ldrsh r0,[r4,r1]
-lsl r0,r0,#10
-lsr r0,r0,#10
-mov r1,r3
-bl 0x087E0000   ;FixTextGfx
-mov r1,#3A
-mov r2,#0
-ldrsh r0,[r4,r2]
-lsl r0,r0,#10
-lsr r0,r0,#10
-lsr r0,r0,#8
-cmp r0,r1
-ble _jpfont2
-add r2,#4
-_jpfont2
-add r2,#8
-add r3,r3,r2
-add r4,#2
-sub r5,#1
-cmp r5,#0
-bge _titlecategorycycle
-b _print2
+@@Text:
+  ldr r0,=TextOfPokedex
+  mov r1,0xBC
+  mul r1,r2
+  add r0,0x20
+  add r4,r1,r0
+  mov r5,4
+  mov r3,0
 
-_hyphen2
-movs r5,#4
-movs r3,#0
+@@TitleCategoryCycle:
+  mov r1,0
+  ldrsh r0,[r4,r1]
+  lsl r0,r0,0x10
+  lsr r0,r0,0x10
+  .hword 0x4619 ;mov r1,r3
+  bl FixTextGfx
+  mov r1,0x3A
+  mov r2,0
+  ldrsh r0,[r4,r2]
+  lsl r0,r0,0x10
+  lsr r0,r0,0x10
+  lsr r0,r0,8
+  cmp r0,r1
+  ble @@JpFont
+  add r2,4
 
-_titlehyphencycle2
-mov r0,#0xF8
-mov r1,#0xA2
-lsl r0,r0,#8
-add r0,r0,r1
-mov r1,r3
-bl 0x087E0000   ;FixTextGfx
-add r3,#0xC
-sub r5,#1
-bge _titlehyphencycle2
+@@JpFont:
+  add r2,8
+  add r3,r3,r2
+  add r4,2
+  sub r5,1
+  cmp r5,0
+  bge @@TitleCategoryCycle
+  b @@Print
 
-_print2
-ldr r0,=0x0203A000
-ldr r1,=0x06004D00
-mov r2,#8
-mov r3,#2
-bl 0x087E0134    ;Load2Ram
-ldr r0,=0x0806DB1C
-ldr r1,=0x0203A000
-mov r2,#8
-mov r3,#2
-bl 0x087E0134    ;Load2Ram
-ldr r0,=0x08006734
-mov pc,r0
-0x0202A170
-0x0805A430
-0x0203A000
-0x06004D00
-0x0806DB1C
-0x08006734
+@@Hyphen:
+  mov r5,4
+  mov r3,0
 
-MapOfDexTile
-0x0806C71C
+@@TitleHyphenCycle:
+  mov r0,0xF8
+  mov r1,0xA2
+  lsl r0,r0,8
+  add r0,r0,r1
+  .hword 0x4619 ;mov r1,r3
+  bl FixTextGfx
+  add r3,0xC
+  sub r5,1
+  bge @@TitleHyphenCycle
 
+@@Print:
+  ldr r0,=0x0203A000
+  ldr r1,=0x06004D00
+  mov r2,8
+  mov r3,2
+  bl Load2RamCopy
+  ldr r0,=0x0806DB1C
+  ldr r1,=0x0203A000
+  mov r2,8
+  mov r3,2
+  bl Load2RamCopy
+
+@@End:
+  ldr r0,=(PrintPokemonDexTopInfos + 0x190);0x08006734
+  mov pc,r0
+.pool
+.endfunc
+    .byte 0
+    .ascii "CHS"
+
+
+
+
+/*
 PrintPokemonDexTopInfos
 {
   if ( Ram_0202A170_1[v2(r7) >> 16] <= 0 )
@@ -230,3 +224,4 @@ PrintPokemonDexTopInfos
   Load2Ram(Ram_0203A000, Ram_06004D00, 8, 2);
   load2Ram(0x0806DB1C, Ram_0203A000, 8, 2);
 }
+*/

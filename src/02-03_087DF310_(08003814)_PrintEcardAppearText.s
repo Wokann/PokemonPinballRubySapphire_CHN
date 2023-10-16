@@ -1,91 +1,80 @@
-PrintEcardAppearText
-.org 0x3814
-ldr r2,=0x087DF310
-mov pc,r2
-0x087DF310
-.back 0x3874
+.func PrintEcardAppearTextChinese
+    push r3-r7,lr
+    lsl r2,r0,3         ;r2 = TextlistNum * 8
+    add r2,r2,r0        ;r2 = TextlistNum * 9
+    lsl r2,r2,4         ;r2 = TextlistNum * 144
+    .hword 0x4614 ;mov r4,r2           ;r4 = TextlistNum * 144
+    .hword 0x460F ;mov r7,r1           ;r7 = TextPrintNum
+    .hword 0x4638 ;mov r0,r7           ;r0 = TextPrintNum
+    mov r1,0x18         ;r1 = 24
+    bl CalRowCopy
+    .hword 0x4606 ;mov r6,r0           ;r6 = RowIndex
+    .hword 0x4638 ;mov r0,r7           ;r0 = TextPrintNum
+    mov r1,0x18         ;r1 = 24
+    bl CalColumnCopy
+    .hword 0x4607 ;mov r7,r0           ;r7 = ColumnIndex
+    lsl r1,r6,1         ;r1 = RowIndex * 2
+    add r1,r1,r6        ;r1 = RowIndex * 3
+    lsl r1,r1,0x4       ;r1 = RowIndex * 48
+    add r4,r4,r1        ;r4 = TextlistNum * 144 +RowIndex * 48
+    ldr r2,=TextOfEcard ;0x0868AF5C
+    add r4,r4,r2        ;textptr(r4) = EcardText_0 + 144 * TextlistNum + 48 * RowIndex;
+    mov r5,0x18
+    mov r3,0
 
-字模地址
-.org 0x0800387C: 
-7C970708 ->
-00A06A08
+@@PrintLineLoop:
+    mov r1,0
+    ldrsh r0,[r4,r1]
+    lsl r0,r0,0x10
+    lsr r0,r0,0x10
+    .hword 0x4619 ;mov r1,r3
+    bl FixTextGfx
+    mov r1,0x3A
+    mov r2,0
+    ldrsh r0,[r4,r2]
+    lsl r0,r0,0x10
+    lsr r0,r0,0x10
+    lsr r0,r0,8
+    cmp r0,r1
+    ble @@JpFont
+    add r2,4
 
-PrintEcardAppearText
-.org 0x087DF310
-push {r3-r7,lr}
-lsl r2,r0,#3    ;r2 = TextlistNum * 8
-add r2,r2,r0    ;r2 = TextlistNum * 9
-lsl r2,r2,#4    ;r2 = TextlistNum * 144
-mov r4,r2       ;r4 = TextlistNum * 144
-mov r7,r1       ;r7 = TextPrintNum
-mov r0,r7       ;r0 = TextPrintNum
-mov r1,#0x18    ;r1 = 24
-bl 0x087Exxxx   ;CalRow
-mov r6,r0       ;r6 = RowIndex
-mov r0,r7       ;r0 = TextPrintNum
-mov r1,#0x18    ;r1 = 24
-bl 0x087Exxxx   ;CalColumn
-mov r7,r0       ;r7 = ColumnIndex
-lsl r1,r6,#1    ;r1 = RowIndex * 2
-add r1,r1,r6    ;r1 = RowIndex * 3
-lsl r1,r1,#0x4  ;r1 = RowIndex * 48
-add r4,r4,r1    ;r4 = TextlistNum * 144 +RowIndex * 48
-ldr r2,=0x0868AF5C
-add r4,r4,r2       ;textptr(r4) = EcardText_0 + 144 * TextlistNum + 48 * RowIndex;
-mov r5,#0x18
-mov r3,#0
+@@JpFont:
+    add r2,8
+    add r3,r3,r2
+    cmp r3,0xC0
+    bge @@Print
+    add r4,2
+    sub r5,1
+    cmp r5,0
+    bge @@PrintLineLoop
 
-_printline
-mov r1,#0
-ldrsh r0,[r4,r1]
-lsl r0,r0,#10
-lsr r0,r0,#10
-mov r1,r3
-bl 0x087E0000   ;FixTextGfx
-mov r1,#3A
-mov r2,#0
-ldrsh r0,[r4,r2]
-lsl r0,r0,#10
-lsr r0,r0,#10
-lsr r0,r0,#8
-cmp r0,r1
-ble _jpfont
-add r2,#4
-_jpfont
-add r2,#8
-add r3,r3,r2
-cmp r3,0xC0
-bge _print4
-add r4,#2
-sub r5,#1
-cmp r5,#0
-bge _printline
+@@Print:
+    lsl r0,r7,5   ;0x20 * ColumnIndex
+    lsl r2,r6,0xB ;0x800 * RowIndex
+    add r2,r2,r0   ;0x20 * ColumnIndex + 0x800 * RowIndex
+    ldr r1,=0x0203A000
+    add r0,r0,r1   ;0x0203A000 + 0x20 * ColumnIndex
+    ldr r1,=0x03001800
+    add r1,r1,r2  ;0x03001800 + 0x20 * ColumnIndex + 0x800 * RowIndex
+    mov r2,1
+    mov r3,2
+    bl Load2RamCopy
+    ldr r0,=0x0806DB1C
+    ldr r1,=0x0203A000
+    mov r2,0x18
+    ;mov r3,2 ;代码未写进去，需补回，待更新
+    bl Load2RamCopy
+    pop r3-r7
 
-_print4
-lsl r0,r7,#5   ;0x20 * ColumnIndex
-lsl r2,r6,#0xB ;0x800 * RowIndex
-add r2,r2,r0   ;0x20 * ColumnIndex + 0x800 * RowIndex
-ldr r1,=0x0203A000
-add r0,r0,r1   ;0x0203A000 + 0x20 * ColumnIndex
-ldr r1,=0x03001800
-add r1,r1,r2  ;0x03001800 + 0x20 * ColumnIndex + 0x800 * RowIndex
-mov r2,#1
-mov r3,#2
-bl 0x087E0134  ;Load2Ram
-ldr r0,=0x0806DB1C
-ldr r1,=0x0203A000
-mov r2,#0x18
-mov r3,#2
-bl 0x087E0134
-pop{r3-r7}
-ldr r0,=0x08003874
-mov pc,r0
-0x0868AF5C
-0x0203A000
-0x03001800
-0x0806DB1C
-0x08003874
+@@End:
+    ldr r0,=(PrintEcardAppearText + 0x60);0x08003874
+    mov pc,r0
+.pool
+.endfunc
+    .word 0xFFFFFFFF
 
+/*
 int __fastcall PrintEcardAppearText(char TextlistNum, char TextPrintNum)
 {
   int RowIndex; // r6
@@ -114,3 +103,4 @@ int __fastcall PrintEcardAppearText(char TextlistNum, char TextPrintNum)
 
   return v7;
 }
+*/
